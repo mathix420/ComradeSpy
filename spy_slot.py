@@ -4,7 +4,6 @@ import time
 import argparse
 import os
 import json
-import sqlite3 as sqlite
 
 def			windows_notify(title, content) :
 	os.system('powershell.exe New-BurntToastNotification -Text \\"' + title + '\\" , \\"' + content + '\\"');
