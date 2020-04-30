@@ -11,8 +11,9 @@ def			windows_notify(title, content) :
 #def			debian_notify() :
 #	pass
 
-#def			osx_notify() :
-#	pass
+def			osx_notify(title, content) :
+    os.system("""osascript -e 'display notification "{}" with title "{}"'""".format(content, title))
+
 
 ### Process function
 #
@@ -62,5 +63,5 @@ if (not args.session) :
 	print('Please give a session id with -s, --session option')
 	exit(1)
 
-#process_spy_slot(browser_session = chrome_session(cookie_path), os_notifier = windows_notify);
 process_spy_slot(browser_session = args.session, os_notifier = windows_notify);
+#process_spy_slot(browser_session = args.session, os_notifier = osx_notify);

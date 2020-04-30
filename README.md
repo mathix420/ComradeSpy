@@ -35,7 +35,7 @@ Run the script.
 
 ### OSX setup
 
-soon
+Not tested yet, edit script uncomment last line. `osascript` is needed
 
 ### Linux setup
 
