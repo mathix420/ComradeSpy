@@ -8,7 +8,7 @@ python .\spy_slot.py -p rainfall -s 010265afdc1f929384701c9a36522d4
 
 ### Get session_cookie
 
-From your browser go to the intra connect to your Session. Througt the developer get the tools retrieve the session_id value. The key is `_intra_42_session_production`.
+From your browser go to the intra connect to your Session. Througt the developer tools retrieve the session_id value. The key is `_intra_42_session_production`.
 
 ### Windows setup
 
@@ -35,4 +35,8 @@ Run the script.
 
 ### OSX setup
 
+soon
+
 ### Linux setup
+
+soon
