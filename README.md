@@ -16,7 +16,7 @@ Python3 is needed if it's not installed yet you should install it with `choco` p
 
 [chocolatey python3](https://chocolatey.org/packages/python3)
 
-From powershell install `BurntToast` module (visit my gist [hear](https://gist.github.com/CallMarl/997bb9e31e2cd12b4cba7d1804f4c41b) for mor usual tools)
+From powershell install `BurntToast` module (visit my gist [hear](https://gist.github.com/CallMarl/997bb9e31e2cd12b4cba7d1804f4c41b) for more usual tools)
 
 ```
 Install-Module BurntToast

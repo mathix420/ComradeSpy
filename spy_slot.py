@@ -19,11 +19,12 @@ def			osx_notify(title, content) :
 #
 
 def			process_spy_slot(browser_session, os_notifier) :
-	query_frequence		= 10
+	query_frequence		= 2
 	today				= datetime.date.today()
 	url					= "https://projects.intra.42.fr/projects/" + args.project + "/slots.json"
 	cookies				= {'_intra_42_session_production' : browser_session}
 	params				= {
+        'team_id' : args.team,
 		'start' : str(today),
 		'end':str(today + datetime.timedelta(days=args.days))
 	}
@@ -50,9 +51,8 @@ parser.add_argument("-p", "--project", help="project")
 parser.add_argument("-s", "--session", help="session")
 
 # Optional
-parser.add_argument("-d", "--days", help="number of days from today", default=1)
-parser.add_argument("-f", "--from", help="from hour", default=5)
-parser.add_argument("-t", "--to", help="to hour", default=23)
+parser.add_argument("-d", "--days", help="number of days from today", default=2)
+parser.add_argument("-t", "--team", help="session")
 
 args = parser.parse_args()
 
