@@ -46,6 +46,7 @@ def slack_message(options):
 #         f'https://projects.intra.42.fr/projects/{options.project}/slots?team_id={options.team}'
 #     ])
 
+# TODO: add some debounce logic
 
 def process_spy_slot(options):
     today = datetime.date.today()
