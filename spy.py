@@ -10,6 +10,9 @@ import argparse
 
 load_dotenv()
 
+if getenv('SLACK_TOKEN'):
+    slack = WebClient(getenv('SLACK_TOKEN'))
+
 notify = {
     'Linux': lambda x: subprocess.Popen(['notify-send', 'ComradeSpy', x]),
     'Windows': lambda x: subprocess.Popen(['powershell.exe', f"New-BurntToastNotification -Text 'ComradeSpx', '{x}'"]),
@@ -18,9 +21,8 @@ notify = {
 
 
 def slack_message(options):
-    client = WebClient(getenv('SLACK_TOKEN'))
     url = f'https://projects.intra.42.fr/projects/{options.project}/slots?team_id={options.team}'
-    client.chat_postMessage(
+    slack.chat_postMessage(
         channel=options.slack_id,
         text=f'One slot is available for {options.project}.',
         attachments=[{
@@ -55,13 +57,30 @@ def process_spy_slot(options):
         'end': str(today + datetime.timedelta(days=options.days))
     }
 
+    if options.slack_id:
+        slack.chat_postMessage(
+            channel=options.slack_id,
+            text=f'Spy slot strated!',
+            username='Comrade Spy',
+            icon_emoji=':sleuth_or_spy:'
+        )
+
     notify(f'Is checking slots for {options.project}')
     while True:
         response = requests.get(url, params=params, cookies=cookies)
         data = response.json()
 
+
         if len(data):
+            try:
+                with open(f'slots-{options.project}.log', 'a+') as fp:
+                    fp.write(str(data))
+                    fp.write('\n\n'+'='*100+'\n\n')
+            except:
+                pass
+
             notify(f'One slot is available for {options.project}.')
+
             if options.slack_id:
                 slack_message(options)
             # if options.open:
@@ -78,8 +97,8 @@ parser.add_argument('-p', '--project', help='project', required=True)
 parser.add_argument('-s', '--session', help='session', required=True)
 
 # Optional
-parser.add_argument('-d', '--days', help='number of days from today', default=2)
-parser.add_argument('-f', '--freq', help='frequency between checks', default=10)
+parser.add_argument('-d', '--days', help='number of days from today', default=2, type=int)
+parser.add_argument('-f', '--freq', help='frequency between checks', default=10, type=int)
 # parser.add_argument('-o', '--open', help='open slots in browser', action='store_true')
 parser.add_argument('--slack-id', help='send slack notifs to this conv id')
 parser.add_argument('-t', '--team', help='session')
